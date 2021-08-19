@@ -99,7 +99,7 @@ namespace StateProj.Controllers
             }
         }
 
-        public IActionResult DeleteCook()
+        public IActionResult DeleteCookie()
         {
             if (Request.Cookies["userName"] != null)
             {

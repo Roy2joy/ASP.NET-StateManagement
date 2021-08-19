@@ -24,6 +24,11 @@ namespace StateProj
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSession(options =>
+            {
+                //we have to add this service to make use of session
+                options.IdleTimeout = TimeSpan.FromSeconds(20);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +46,8 @@ namespace StateProj
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession(); //have to add service to make use of it
 
             app.UseRouting();
 

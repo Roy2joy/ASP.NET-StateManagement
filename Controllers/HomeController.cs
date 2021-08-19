@@ -5,9 +5,13 @@ using StateProj.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+
 namespace StateProj.Controllers
 {
     public class HomeController : Controller
@@ -18,7 +22,58 @@ namespace StateProj.Controllers
         {
             _logger = logger;
         }
- 
+
+
+        //
+        public string encrypt(string encryptString)
+        {
+            string EncryptionKey = "ZNTS456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(encryptString);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
+            0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
+        });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    encryptString = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return encryptString;
+        }
+
+        public string Decrypt(string cipherText)
+        {
+            string EncryptionKey = "ZNTS456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            cipherText = cipherText.Replace(" ", "+");
+            byte[] cipherBytes = Convert.FromBase64String(cipherText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
+            0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
+        });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(cipherBytes, 0, cipherBytes.Length);
+                        cs.Close();
+                    }
+                    cipherText = Encoding.Unicode.GetString(ms.ToArray());
+                }
+            }
+            return cipherText;
+        }
+
         public IActionResult Index()
         {
             
@@ -30,9 +85,11 @@ namespace StateProj.Controllers
         {
             if(name=="abc" && pwd == "123")
             {
+                string cryptext = encrypt(name);
                 CookieOptions options = new CookieOptions();
-                options.Expires = DateTime.Now.AddSeconds(40);
-                Response.Cookies.Append("userName", name, options);
+                options.Secure = true;
+                options.Expires = DateTime.Now.AddSeconds(4000);
+                Response.Cookies.Append("userName", cryptext, options);
 
                 return RedirectToAction("Display");
             }
@@ -55,7 +112,9 @@ namespace StateProj.Controllers
         {
             if (Request.Cookies["userName"]!=null)
             {
-                ViewBag.temp = Request.Cookies["userName"];
+                string cryptext=Request.Cookies["userName"];
+                string result = Decrypt(cryptext);
+                ViewBag.temp = result;
             }
             else
             {

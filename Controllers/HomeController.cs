@@ -88,7 +88,7 @@ namespace StateProj.Controllers
                 string cryptext = encrypt(name);
                 CookieOptions options = new CookieOptions();
                 options.Secure = true;
-                options.Expires = DateTime.Now.AddSeconds(4000);
+                //options.Expires = DateTime.Now.AddSeconds(4000);
                 Response.Cookies.Append("userName", cryptext, options);
 
                 return RedirectToAction("Display");

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-
+using System.Web;
 namespace StateProj.Controllers
 {
     public class HomeController : Controller
@@ -20,13 +20,28 @@ namespace StateProj.Controllers
  
         public IActionResult Index()
         {
+            
             return View();
         }
 
-        
-        public IActionResult Test()
+        [HttpPost]
+        public IActionResult Test(string name,string pwd)
         {
-            return View();
+            if(name=="abc" && pwd == "123")
+            {
+                //HttpCookie userInfo = new HttpCookie("userInfo");  
+                //userInfo["UserName"] = "Annathurai";  
+                //userInfo["UserColor"] = "Black";  
+                //userInfo.Expires.Add(new TimeSpan(0, 1, 0));  
+                //Response.Cookies.Add(userInfo);
+
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         public IActionResult Privacy()

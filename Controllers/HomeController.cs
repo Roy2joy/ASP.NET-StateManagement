@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StateProj.Models;
 using System;
@@ -29,19 +30,29 @@ namespace StateProj.Controllers
         {
             if(name=="abc" && pwd == "123")
             {
-                //HttpCookie userInfo = new HttpCookie("userInfo");  
-                //userInfo["UserName"] = "Annathurai";  
-                //userInfo["UserColor"] = "Black";  
-                //userInfo.Expires.Add(new TimeSpan(0, 1, 0));  
-                //Response.Cookies.Add(userInfo);
+                CookieOptions options = new CookieOptions();
+                options.Expires = DateTime.Now.AddSeconds(40);
+                Response.Cookies.Append("userName", name, options);
 
-
-                return View();
+                return RedirectToAction("Display");
             }
             else
             {
                 return RedirectToAction("Index");
             }
+        }
+
+        public IActionResult Display()
+        {
+            if (Request.Cookies["userName"]!=null)
+            {
+                ViewBag.temp = Request.Cookies["userName"];
+            }
+            else
+            {
+                ViewBag.temp = "anonymous";
+            }
+            return View();
         }
 
         public IActionResult Privacy()

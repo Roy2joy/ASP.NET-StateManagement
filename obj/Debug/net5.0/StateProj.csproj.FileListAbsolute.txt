@@ -355,4 +355,4 @@ C:\Users\Nabeel Noor\Desktop\StateProject\StateProj\obj\Debug\net5.0\StateProj.d
 C:\Users\Nabeel Noor\Desktop\StateProject\StateProj\obj\Debug\net5.0\ref\StateProj.dll
 C:\Users\Nabeel Noor\Desktop\StateProject\StateProj\obj\Debug\net5.0\StateProj.pdb
 C:\Users\Nabeel Noor\Desktop\StateProject\StateProj\obj\Debug\net5.0\StateProj.genruntimeconfig.cache
-C:\Users\Nabeel Noor\Desktop\StateProject\StateProj\obj\Debug\net5.0\Razor\Views\Home\Test.cshtml.g.cs
+C:\Users\Nabeel Noor\Desktop\StateProject\StateProj\obj\Debug\net5.0\Razor\Views\Home\Display.cshtml.g.cs

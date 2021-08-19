@@ -42,6 +42,15 @@ namespace StateProj.Controllers
             }
         }
 
+        public IActionResult DeleteCook()
+        {
+            if (Request.Cookies["userName"] != null)
+            {
+                Response.Cookies.Delete("userName");
+            }
+            return RedirectToAction("Display");
+        }
+
         public IActionResult Display()
         {
             if (Request.Cookies["userName"]!=null)

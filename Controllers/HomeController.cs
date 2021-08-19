@@ -88,6 +88,9 @@ namespace StateProj.Controllers
                 string cryptext = encrypt(name);
                 CookieOptions options = new CookieOptions();
                 options.Secure = true;
+                /*this line is used to make cookie ,persistant and non persistant ,
+                 * to make persistant cookie ,you have to mentions Expire's time.
+                 */
                 //options.Expires = DateTime.Now.AddSeconds(4000);
                 Response.Cookies.Append("userName", cryptext, options);
 

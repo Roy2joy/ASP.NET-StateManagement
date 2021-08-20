@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qZbnxfkGrUZCOtLzDvT4bwox0IBG/f4OBfoJqa5ViYHZ228FdxINWN5gQS3A7N6X82ISJTMC5qfodEy50fFwqg==",
+  "dgSpecHash": "lEOa1mTVe2UQ5mZYkAmb8QNoAhfLH/dLt/w0VSvAcs6LgEAjo0vClG7wqyeYGHEJZc6gZOC8u+D4rX5oT1Eu/A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Nabeel Noor\\Desktop\\StateProject\\StateProj\\StateProj.csproj",
   "expectedPackageFiles": [
@@ -30,6 +30,7 @@
     "C:\\Users\\Nabeel Noor\\.nuget\\packages\\microsoft.extensions.primitives\\2.2.0\\microsoft.extensions.primitives.2.2.0.nupkg.sha512",
     "C:\\Users\\Nabeel Noor\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
+    "C:\\Users\\Nabeel Noor\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\Nabeel Noor\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.componentmodel.annotations\\4.5.0\\system.componentmodel.annotations.4.5.0.nupkg.sha512",
     "C:\\Users\\Nabeel Noor\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",

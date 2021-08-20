@@ -3,6 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StateProj.Models;
+
+using Microsoft.AspNetCore.Http; //for the use of session
+using Newtonsoft.Json; //for JsonConvert
+
 
 namespace StateProj.Controllers
 {
@@ -18,8 +23,22 @@ namespace StateProj.Controllers
         {
             if (name == "abc" && pwd == "123")
             {
+                User obj = new User
+                {
+                    name = "test user",
+                    pwd = "1234"
+                };
 
+                //-------------------------------------session code --(store 2 variable in session)
 
+                //to store single value.
+                HttpContext.Session.SetString("name", "abc"); 
+                /*to store object,you have to convert it into string,for that you can use seriailization
+                 *technique ,convert object in series of string(like JSON stringigy in JS)
+                 */
+                HttpContext.Session.SetString("item",JsonConvert.SerializeObject(obj) ); 
+
+                
                 return RedirectToAction("Display");
             }
             else
@@ -28,26 +47,33 @@ namespace StateProj.Controllers
             }
         }
 
+
         public IActionResult Display()
         {
-            if (/*Request.Cookies["userName"] != null*/true)
+            if (HttpContext.Session.GetString("name") != null && HttpContext.Session.GetString("name") !="")
             {
-                //string cryptext = Request.Cookies["userName"];
-                //string result = Decrypt(cryptext);
-                //ViewBag.temp = result;
+                var user = JsonConvert.DeserializeObject<User>( HttpContext.Session.GetString("item") );
+                
+                ViewBag.temp = HttpContext.Session.GetString("name");
+                ViewBag.UserName = user.name;
+                ViewBag.Pwd = user.pwd;
             }
             else
             {
-                //ViewBag.temp = "anonymous";
+                ViewBag.temp = "anonymous";
             }
             return View();
         }
 
         public IActionResult DeleteCookie()
         {
-            if (Request.Cookies["userName"] != null)
+            
+            
+            if (HttpContext.Session.GetString("name") != null)
             {
-                Response.Cookies.Delete("userName");
+                HttpContext.Session.SetString("name", "");
+                HttpContext.Session.SetString("item", "");
+
             }
             return RedirectToAction("Display");
         }

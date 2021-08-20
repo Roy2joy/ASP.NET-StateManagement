@@ -80,51 +80,51 @@ namespace StateProj.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Test(string name,string pwd)
-        {
-            if(name=="abc" && pwd == "123")
-            {
-                string cryptext = encrypt(name);
-                CookieOptions options = new CookieOptions();
-                options.Secure = true;
-                /*this line is used to make cookie ,persistant and non persistant ,
-                 * to make persistant cookie ,you have to mentions Expire's time.
-                 */
-                //options.Expires = DateTime.Now.AddSeconds(4000);
-                Response.Cookies.Append("userName", cryptext, options);
+        //[HttpPost]
+        //public IActionResult Test(string name,string pwd)
+        //{
+        //    if(name=="abc" && pwd == "123")
+        //    {
+        //        string cryptext = encrypt(name);
+        //        CookieOptions options = new CookieOptions();
+        //        options.Secure = true;
+        //        /*this line is used to make cookie ,persistant and non persistant ,
+        //         * to make persistant cookie ,you have to mentions Expire's time.
+        //         */
+        //        //options.Expires = DateTime.Now.AddSeconds(4000);
+        //        Response.Cookies.Append("userName", cryptext, options);
 
-                return RedirectToAction("Display");
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
-        }
+        //        return RedirectToAction("Display");
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //}
 
-        public IActionResult DeleteCookie()
-        {
-            if (Request.Cookies["userName"] != null)
-            {
-                Response.Cookies.Delete("userName");
-            }
-            return RedirectToAction("Display");
-        }
+        //public IActionResult DeleteCookie()
+        //{
+        //    if (Request.Cookies["userName"] != null)
+        //    {
+        //        Response.Cookies.Delete("userName");
+        //    }
+        //    return RedirectToAction("Display");
+        //}
 
-        public IActionResult Display()
-        {
-            if (Request.Cookies["userName"]!=null)
-            {
-                string cryptext=Request.Cookies["userName"];
-                string result = Decrypt(cryptext);
-                ViewBag.temp = result;
-            }
-            else
-            {
-                ViewBag.temp = "anonymous";
-            }
-            return View();
-        }
+        //public IActionResult Display()
+        //{
+        //    if (Request.Cookies["userName"]!=null)
+        //    {
+        //        string cryptext=Request.Cookies["userName"];
+        //        string result = Decrypt(cryptext);
+        //        ViewBag.temp = result;
+        //    }
+        //    else
+        //    {
+        //        ViewBag.temp = "anonymous";
+        //    }
+        //    return View();
+        //}
 
         public IActionResult Privacy()
         {

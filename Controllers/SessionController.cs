@@ -21,18 +21,19 @@ namespace StateProj.Controllers
         [HttpPost]
         public IActionResult Test(string name, string pwd)
         {
-            if (name == "abc" && pwd == "123")
+            string localname = name;
+            if ((name == "abc1" || name=="abc2" || name == "abc3") && pwd == "123")
             {
                 User obj = new User
                 {
-                    name = "test user",
+                    name = "test user:"+localname,
                     pwd = "1234"
                 };
 
                 //-------------------------------------session code --(store 2 variable in session)
 
                 //to store single value.
-                HttpContext.Session.SetString("name", "abc"); 
+                HttpContext.Session.SetString("name", name); 
                 /*to store object,you have to convert it into string,for that you can use seriailization
                  *technique ,convert object in series of string(like JSON stringigy in JS)
                  */
